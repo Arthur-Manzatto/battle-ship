@@ -13,13 +13,35 @@
     <div class="bgimage"></div>
     <div class="container">
 
-        <div class="infos">
-            <div class="title">⚓ Play BattleShip ⚓</div>
-            <button class="button">JOGAR</button>
-            <button class="button">INSTRUÇÕES</button>
+        <div class="infos" id="info-container">
+            
+            <h1 class="title">⚓ Play BattleShip ⚓</h1>
+            <button class="button" onclick="chooseGM()">PLAY</button>
+            <button class="button">INSTRUCTIONS</button>
+            
+        </div>   
+        
+        <div class="infos" id="info-container2" style="display: none;">
+            <h1 class="title">⚓ Choose the Game Mode ⚓</h1>
+
+            <div class="option-group">
+                <h2 class="subtitle">Grid Size:</h2>
+                <select id="gridSize">
+                    <option value="8">8 x 8 (Quick)</option>
+                    <option value="10" selected>10 x 10 (Classic)</option>
+                    <option value="12">12 x 12 (Long)</option>
+                    <option value="?">Create my own size</option>
+                </select>
+            </div>
+
+            <div class="option-group">
+                <h2 class="subtitle">Game Mode:</h2>
+                <button class="button mode" data-mode="pvp">Player vs Player</button>
+                <button class="button mode" data-mode="ai">Player vs Robot</button>
+            </div>
+
+            <button class="button primary" id="startGame">Start Game</button>
         </div>
-        
-        
 
     </div>
 </body>
