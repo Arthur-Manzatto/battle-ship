@@ -1,4 +1,8 @@
-function chooseGM(){ //Function that shows the Game mode options to the player
-    document.getElementById("info-container").style.display = "none";
-    document.getElementById("info-container2").style.display = "flex";
+function showScreen(screenId) { //Function that shows the different game screens
+  
+  document.querySelectorAll(".screen").forEach(screen => { //Here it selects ALL the sections and remove the class ACTIVE(display flex)
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(screenId).classList.add("active"); //At the end, it enables (Adding the class active) the screen that you've sent as parameter :)
 }

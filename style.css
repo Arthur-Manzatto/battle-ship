@@ -28,6 +28,15 @@
     min-height: 100vh;
    
 }
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: flex;
+}
+
 .infos{
     display: flex;
     justify-content: center;
