@@ -1,0 +1,68 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+
+.bgimage{
+    position: fixed;
+    background-image: url("images/ocean-bg.jpg");
+    background-size: cover;
+    filter: brightness(30%);
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    
+}
+
+.container{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100vw;
+    min-height: 100vh;
+   
+  
+}
+.infos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(211, 209, 209);
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    border: solid #4c5055 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+.title{
+    font-size: 40px;
+    height: fit-content;
+}
+
+.button{
+    background-color: #dbf1f9;
+    width: 220px;
+    height: 56px;
+    font-size: 18px;
+    margin-top: 10mm;
+    border: 0;
+    border-radius: 10px;
+    font-size: 20px;
+
+    transition: all 0.2s ease;
+}
+
+.button:hover{
+    background-color: #54baf1;
+    transform: scale(1.05);
+    
+}
