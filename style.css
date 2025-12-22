@@ -220,3 +220,16 @@ select:focus {
   align-items: center;
   gap: 24px;
 }
+
+/* GRID PART - TABULEIRO*/
+
+.grid{
+  display: grid;
+  gap: 4px;
+}
+.water{
+  width: 40px;
+  height: 40px;
+
+  background-color: red;
+}

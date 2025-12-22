@@ -15,7 +15,7 @@
     <div class="bgimage"></div>
     <div class="container">
 
-        <section id="firstmenuScreen" class="screen">
+        <section id="firstmenuScreen" class="screen ">
             <div class="infos" id="info-container">
 
                 <h1 class="title">⚓ Play BattleShip ⚓</h1>
@@ -25,7 +25,7 @@
             </div>
         </section>
 
-        <section id="gameSettingsScreen" class="screen">
+        <section id="gameSettingsScreen" class="screen active">
             <div class="infos" id="info-container2">
                 <h1 class="title">⚓ Choose the Game Mode ⚓</h1>
 
@@ -45,11 +45,11 @@
                     <button class="button mode" data-mode="ai">Player vs Robot</button>
                 </div>
 
-                <button class="button primary" id="startGame" onclick="showScreen('gameScreen')">Start Game</button>
+                <button class="button primary" id="startGame" onclick="start()">Start Game</button>
             </div>
         </section>
         
-        <section id="gameScreen" class="screen active">
+        <section id="gameScreen" class="screen ">
 
             <div class="infos p-container" id="p1S">
                
@@ -58,7 +58,7 @@
                     <hr class="divider">
                 </div>
 
-                <div class="grid"></div>
+                <div class="grid" id="grid-p1"></div>
 
                 <div class="footer">
                     Enemy Ships Remaining: <span id="p1-ships">5</span>
@@ -73,7 +73,7 @@
                     <hr class="divider">
                 </div>
 
-                <div class="grid"></div>
+                <div class="grid" id="grid-p2"></div>
 
                 <div class="footer">
                     Enemy Ships Remaining: <span id="p2-ships">5</span>
