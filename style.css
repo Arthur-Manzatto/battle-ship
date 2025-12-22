@@ -1,95 +1,100 @@
-*{
-    padding: 0;
-    margin: 0;
-    font-family: "Space Mono", monospace;
-    font-weight: 400;
-    font-style: normal;
-    
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+
 }
 
-.bgimage{
-    position: fixed;
-    background-image: url("images/ocean-bg.jpg");
-    background-size: cover;
-    filter: brightness(30%);
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    
+.bgimage {
+  position: fixed;
+  background-image: url("images/ocean-bg.jpg");
+  background-size: cover;
+  filter: brightness(30%);
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+
 }
 
-.container{
+.container {
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    width: 100vw;
-    min-height: 100vh;
-   
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100vw;
+  min-height: 100vh;
+
 }
 
 .screen {
   display: none;
 }
 
+.flex{
+  display: flex;
+}
+
 .screen.active {
   display: flex;
 }
 
-.infos{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(211, 209, 209);
-    width: 90%;
-    max-width: 600px;
-    padding: 40px;
-    border: solid #4c5055 5px;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+.infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(211, 209, 209);
+  width: 90%;
+  max-width: 600px;
+  padding: 40px;
+  border: solid #4c5055 5px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
 }
 
-.title{
-    font-size: 40px;
-    height: fit-content;
+.title {
+  font-size: 40px;
+  height: fit-content;
 }
 
-.subtitle{
-    font-size: 20px;
-    height: fit-content;
-    margin-top: 40px;
+.subtitle {
+  font-size: 20px;
+  height: fit-content;
+  margin-top: 40px;
 }
 
-select{
-    background-color: #dbf1f9;
-    
-    border: 0;
-    border-radius: 10px;
-    font-size: 20px;
+select {
+  background-color: #dbf1f9;
+
+  border: 0;
+  border-radius: 10px;
+  font-size: 20px;
 
 }
 
-.button{
-    background-color: #dbf1f9;
-    width: 220px;
-    height: 56px;
-    font-size: 18px;
-    margin-top: 40px;
-    border: 0;
-    border-radius: 10px;
-    font-size: 20px;
+.button {
+  background-color: #dbf1f9;
+  width: 220px;
+  height: 56px;
+  font-size: 18px;
+  margin-top: 40px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 20px;
 
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 
-.button:hover{
-    background-color: #54baf1;
-    transform: scale(1.05);
-    
+.button:hover {
+  background-color: #54baf1;
+  transform: scale(1.05);
+
 }
+
 .subtitle {
   margin: 24px 0 8px;
   font-size: 20px;
@@ -103,7 +108,7 @@ select{
   align-items: center;
   margin-bottom: 16px;
 
-  
+
 }
 
 /* SELECT (Grid size) */
@@ -145,9 +150,73 @@ select:focus {
   margin-top: 28px;
   background-color: #2d8fd5;
   color: white;
- 
+
 }
 
 .button.primary:hover {
   background-color: #1f78b4;
+}
+
+
+
+.p-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* HEADER */
+.panel-header {
+  width: 100%;
+}
+
+.heading {
+  font-size: 22px;
+  text-align: left;
+}
+
+/* DIVIDER LINE */
+.divider {
+  width: 100%;
+  border: none;
+  height: 2px;
+  background-color: #4c5055;
+  margin: 8px 0 16px;
+}
+
+/* GRID AREA */
+.grid {
+  align-self: center;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 16px;
+  font-size: 16px;
+  text-align: center;
+  opacity: 0.9;
+}
+.instructions {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+  padding: 14px 20px;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  color: #083344;
+  background: linear-gradient(90deg, #54baf1, #8fd3f4);
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+#gameInstructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
