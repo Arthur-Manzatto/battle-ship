@@ -33,7 +33,7 @@
   display: none;
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
@@ -196,11 +196,14 @@ select:focus {
   text-align: center;
   opacity: 0.9;
 }
-.instructions {
+
+.tips {
+  position: absolute;
   width: 100%;
   max-width: 800px;
-  margin-bottom: 20px;
   padding: 14px 20px;
+
+
 
   text-align: center;
   font-size: 18px;
@@ -214,22 +217,60 @@ select:focus {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-#gameInstructions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
+
+
 
 /* GRID PART - TABULEIRO*/
 
-.grid{
+.grid {
   display: grid;
   gap: 4px;
 }
-.water{
+
+.water {
   width: 40px;
   height: 40px;
 
-  background-color: red;
+  background-color: #daeff8;
 }
+
+
+/*TOAST */
+
+.toast {
+  position: fixed;
+  top: 25px;
+  right: 30px;
+
+  transform: translateX(120%);
+  opacity: 0;
+
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #4070f4;
+
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+/* Visible state */
+.toast.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+.toast .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+
+/*TOAST */
