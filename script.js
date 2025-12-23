@@ -44,32 +44,51 @@ function showPlayerInfo(player, message, shipsNumber) {
 function start() {
   showScreen('gameScreen');
 
-  const gridp1 = document.getElementById("grid-p1");
-  const gridp2 = document.getElementById("grid-p2");
 
   const gridNumber = Number(document.getElementById("gridSize").value);
   const gridTotalSize = gridNumber * gridNumber;
 
-  gridp1.innerHTML = "";
-  gridp2.innerHTML = "";
-
-  gridp1.style.gridTemplateColumns = `repeat(${gridNumber}, 1fr)`; // Here I set the size (Y x Y) of the grid
-  gridp2.style.gridTemplateColumns = `repeat(${gridNumber}, 1fr)`;
-
-  for (let i = 0; i < gridTotalSize; i++) { //This loop creates the "water" blocks
-    const water1 = document.createElement("div");
-    water1.classList.add("water");
-
-    const water2 = document.createElement("div");
-    water2.classList.add("water");
-
-    gridp1.appendChild(water1); //Here I'm adding the water div to the grid element 
-    gridp2.appendChild(water2);
-  }
+  createBoard("board-p1", gridNumber);
 
   const ships_number = Math.round(gridTotalSize * 0.2);
   placingBoats(ships_number);
 }
+
+function createBoard(boardId, gridNumber) {
+  const board = document.getElementById(boardId);
+  board.innerHTML = "";
+
+  board.style.gridTemplateColumns = `40px repeat(${gridNumber}, 40px)`;
+  board.style.gridTemplateRows = `40px repeat(${gridNumber}, 40px)`;
+
+  // canto vazio
+  const corner = document.createElement("div");
+  corner.classList.add("corner");
+  board.appendChild(corner);
+
+  // letras
+  for (let i = 65; i < 65 + gridNumber; i++) {
+    const letter = document.createElement("div");
+    letter.classList.add("label");
+    letter.textContent = String.fromCharCode(i);
+    board.appendChild(letter);
+  }
+
+  // números + água
+  for (let row = 0; row < gridNumber; row++) {
+    const number = document.createElement("div");
+    number.classList.add("label");
+    number.textContent = row + 1;
+    board.appendChild(number);
+
+    for (let col = 0; col < gridNumber; col++) {
+      const cell = document.createElement("div");
+      cell.classList.add("cell", "water");
+      board.appendChild(cell);
+    }
+  }
+}
+
 
 function placingBoats(stn) {
   showPlayerSide(1);

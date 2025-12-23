@@ -184,10 +184,6 @@ select:focus {
   margin: 8px 0 16px;
 }
 
-/* GRID AREA */
-.grid {
-  align-self: center;
-}
 
 /* FOOTER */
 .footer {
@@ -225,6 +221,7 @@ select:focus {
 .grid {
   display: grid;
   gap: 4px;
+  align-self: center;
 }
 
 .water {
@@ -260,7 +257,6 @@ select:focus {
   opacity: 1;
 }
 
-
 .toast .toast-content {
   display: flex;
   align-items: center;
@@ -272,5 +268,30 @@ select:focus {
   margin: 0 20px;
 }
 
-
 /*TOAST */
+
+.board {
+  display: grid;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-20px);
+}
+
+.board .cell,
+.board .label,
+.board .corner {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
