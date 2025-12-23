@@ -16,32 +16,32 @@
     <div class="bgimage"></div>
     <div class="container">
 
-        <section id="firstmenuScreen" class="screen active">
+        <section id="firstmenuScreen" class="screen ">
             <div class="infos" id="info-container">
 
                 <h1 class="title">⚓ Play BattleShip ⚓</h1>
-                <button class="button" onclick="showScreen('gameSettingsScreen')">PLAY</button>
-                <button class="button">INSTRUCTIONS</button>
+                <button class="button" onclick="showScreen('gameSettingsScreen')">JOGAR</button>
+                <button class="button">INSTRUÇÕES</button>
 
             </div>
         </section>
 
-        <section id="gameSettingsScreen" class="screen ">
+        <section id="gameSettingsScreen" class="screen active">
             <div class="infos" id="info-container2">
-                <h1 class="title">⚓ Choose the Game Mode ⚓</h1>
+                <h1 class="title">Escolha o Modo de Jogo!</h1>
 
                 <div class="option-group">
-                    <h2 class="subtitle">Grid Size:</h2>
+                    <h2 class="subtitle">Tamanho do Tabuleiro:</h2>
                     <select id="gridSize">
-                        <option value="8">8 x 8 (Quick)</option>
-                        <option value="10">10 x 10 (Classic)</option>
-                        <option value="12">12 x 12 (Long)</option>
+                        <option value="8">8 x 8 (Rápido)</option>
+                        <option value="10">10 x 10 (Classico)</option>
+                        <option value="12">12 x 12 (Longo)</option>
                         <option value="5" selected>5 x 5 (CMoS)</option>
                     </select>
                 </div>
 
                 <div class="option-group">
-                    <h2 class="subtitle">Game Mode:</h2>
+                    <h2 class="subtitle">Modo de Jogo:</h2>
                     <button class="button mode" data-mode="pvp">Player vs Player</button>
                     <button class="button mode" data-mode="ai">Player vs Robot</button>
                 </div>
@@ -51,7 +51,8 @@
         </section>
         <div class="toast">
             <div class="toast-content">
-                <i class="fa-solid fa-circle-exclamation fa-2x"></i>
+                <i class="fa-solid fa-circle-exclamation fa-2x" style="display: none;" id="warning-icon"></i>
+                <i class="fa-solid fa-lightbulb fa-2x" style="display: none;" id="tip-icon"></i>
 
                 <div class="message">
                     <span class="text text-1" id="text1">Success</span>
@@ -62,11 +63,10 @@
         </div>
         <section id="gameScreen" class="screen ">
 
-
             <div class="infos p-container" id="p1S">
 
                 <div class="panel-header">
-                    <h2 class="heading">PLAYER 1 SIDE</h2>
+                    <h2 class="heading">LADO DO PLAYER 1</h2>
                     <hr class="divider">
                 </div>
 
@@ -74,16 +74,16 @@
 
                 <div class="footer" id="p1-footer">
                     <span id="p1-info"></span> <span id="p1-ships"></span>
-                    <button class="button primary" id="donep1" onclick="donePlacing(this)" style="display:none">DONE</button>
+                    <button class="button primary" id="donep1" onclick="donePlacing()" style="display:none">FEITO</button>
 
                 </div>
 
             </div>
 
-            <div class="infos p-container" id="p2S">
+            <div class="infos p-container" id="p2S" style="display: none;">
 
                 <div class="panel-header">
-                    <h2 class="heading">PLAYER 2 SIDE</h2>
+                    <h2 class="heading">LADO DO PLAYER 2</h2>
                     <hr class="divider">
                 </div>
 
@@ -91,7 +91,7 @@
 
                 <div class="footer" id="p2-footer">
                     <span id="p2-info"></span> <span id="p2-ships"></span>
-                    <button class="button primary" id="donep2" onclick="donePlacing(this)" style="display:none">DONE</button>
+                    <button class="button primary" id="donep2" onclick="donePlacing()" style="display:none">FEITO</button>
 
                 </div>
 

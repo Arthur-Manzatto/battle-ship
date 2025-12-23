@@ -22,16 +22,34 @@ function showPlayerSide(player) { //Function that changes the player sied
 
 const toast = document.querySelector(".toast");
 
-function showToast(player, message) { //Show a toast with game tips, so then players know what to do
+function showToast(player, message, type) { //Show a toast with game tips, so then players know what to do
   toast.classList.add("active"); //Add the class that pop the toast at the screen
 
+  if (type == "warning") {
+
+    toast.classList.add("warning");
+    document.getElementById("warning-icon").style.display = "block"
+    setTimeout(() => {
+      toast.classList.remove("active");
+      toast.classList.remove("warning");
+      document.getElementById("warning-icon").style.display = "none"
+    }, 2000);
+
+  } else if (type == "tip") {
+
+    document.getElementById("tip-icon").style.display = "block"
+    setTimeout(() => {
+      toast.classList.remove("active");
+      document.getElementById("tip-icon").style.display = "none"
+    }, 7000);
+
+  }
   document.getElementById("text1").innerText = "PLAYER " + player;
   document.getElementById("text2").innerText = message;
 
   // Optional auto-hide after 4s
-  setTimeout(() => {
-    toast.classList.remove("active");
-  }, 10000);
+
+
 }
 
 function showPlayerInfo(player, message, shipsNumber) {
@@ -41,6 +59,20 @@ function showPlayerInfo(player, message, shipsNumber) {
   if (info) info.innerText = message;
   if (ships) ships.innerText = shipsNumber;
 
+}
+
+function start() {
+  showScreen('gameScreen');
+
+  const gridNumber = Number(document.getElementById("gridSize").value);
+  const gridTotalSize = gridNumber * gridNumber;
+
+  createBoard("board-p1", gridNumber);
+  createBoard("board-p2", gridNumber);
+
+  shipsTotalNumber = Math.round(gridTotalSize * 0.2);
+  ships_number = shipsTotalNumber;
+  placingBoats(ships_number);
 }
 
 function createBoard(boardId, gridNumber) {
@@ -73,8 +105,10 @@ function createBoard(boardId, gridNumber) {
     for (let col = 0; col < gridNumber; col++) {
       const cell = document.createElement("div");
       cell.classList.add("cell", "water");
+
       cell.setAttribute("row", row);
       cell.setAttribute("col", col);
+      cell.setAttribute("empty", "true"); // setAttribute() always return a boolean (I figured it out the hard way ;-;)
 
       cell.addEventListener("click", () => {
         clicked_water(cell);
@@ -83,73 +117,114 @@ function createBoard(boardId, gridNumber) {
       board.appendChild(cell);
     }
   }
+
+  createMatrixGrid(gridNumber);
 }
 
+var p1_matrix = [];
+var p2_matrix = [];
+function createMatrixGrid(sideSize) { //Create the matrix grid, used to logically "place" the ships
 
-function start() {
-  showScreen('gameScreen');
-
-  const gridNumber = Number(document.getElementById("gridSize").value);
-  const gridTotalSize = gridNumber * gridNumber;
-
-  createBoard("board-p1", gridNumber);
-  createBoard("board-p2", gridNumber);
-
-  ships_number = Math.round(gridTotalSize * 0.2);
-  placingBoats(ships_number);
-}
-
-var ships_number;
-var shipsPlacingNumber;
-var isPlacingPhase = true;
-var isAttackingPhase = false;
-
-function clicked_water(element) {
-  console.log("Row: " + element.getAttribute("row") + "Col: " + element.getAttribute("col"));
-
-  if (isPlacingPhase && shipsPlacingNumber != 0) {
-    placingBoats(shipsPlacingNumber - 1);
+  for (let i = 0; i < sideSize; i++) { // Player 1 Matrix
+    p1_matrix[i] = [];
+    for (let j = 0; j < sideSize; j++) {
+      p1_matrix[i][j] = 0;
+    }
   }
 
-  if (shipsPlacingNumber === 0) {
-    document.getElementById("donep1").style.display = "block";
-    document.getElementById("donep2").style.display = "block";
+  for (let i = 0; i < sideSize; i++) {// Player 2 Matrix
+    p2_matrix[i] = [];
+    for (let j = 0; j < sideSize; j++) {
+      p2_matrix[i][j] = 0;
+    }
+  }
+
+}
+
+var isPlacingPhase = false;
+function placingBoats(stn) {
+  isPlacingPhase = true;
+  showToast(currentPlayer, "POSICIONE SEUS BARCOS!", "tip");
+
+  shipsPlacingNumber = stn;
+  showPlayerInfo(currentPlayer, "Barcos para posicionar:", shipsPlacingNumber);
+
+}
+
+function placeInMatrix(row, col, value, shipsCurrentNumber) {
+  if (currentPlayer == 1) {
+    p1_matrix[row][col] = value;
+    console.log(p1_matrix);
+
   } else {
-    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+    p2_matrix[row][col] = value;
+    console.log(p2_matrix);
   }
+
+  shipsPlacingNumber = shipsCurrentNumber;
+  showPlayerInfo(currentPlayer, "Barcos para posicionar:", shipsPlacingNumber);
 }
 
 function donePlacing(btn) {
 
   if (currentPlayer == 1) {
+    showPlayerSide(2);
     document.getElementById("donep1").style.display = "none";
     document.getElementById("donep2").style.display = "none";
 
-    showPlayerSide(2);
-    placingBoats(ships_number);
-    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+    placingBoats(shipsTotalNumber);
+    showPlayerInfo(currentPlayer, "Barcos para posicionar:", shipsTotalNumber);
   } else {
     attackingBoats();
   }
 
 }
 
-function placingBoats(stn) {
+var ships_number;
+var shipsPlacingNumber;
+var isAttackingPhase = false;
 
-  if (currentPlayer == 1) {
-    showPlayerSide(1);
-    showToast(currentPlayer, "PLACE YOUR BOATS");
+function clicked_water(element) {
 
-    shipsPlacingNumber = stn;
-    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
-  } else {
-    showToast(currentPlayer, "PLACE YOUR BOATS");
+  let element_row = element.getAttribute("row");
+  let element_col = element.getAttribute("col");
+  let element_isEmpty = element.getAttribute("empty");
 
-    shipsPlacingNumber = stn;
-    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+
+  if (isPlacingPhase) {
+
+    if (element_isEmpty === "true" && shipsPlacingNumber != 0) {
+
+      placeInMatrix(element_row, element_col, 1, shipsPlacingNumber - 1);
+      element.setAttribute("empty", "false");
+
+      element.innerHTML = "<i class='fa-solid fa-circle-dot fa-lg' style='color: #c41717;'></i>";
+
+    } else if (element_isEmpty === "false") {
+
+      placeInMatrix(element_row, element_col, 0, shipsPlacingNumber + 1);
+      element.setAttribute("empty", "true");
+
+      element.innerHTML = "";
+
+      document.getElementById("donep1").style.display = "none";
+      document.getElementById("donep2").style.display = "none";
+
+    } else {
+      showToast(currentPlayer, "Você não tem mais barcos", "warning")
+    }
+
   }
 
+  if (shipsPlacingNumber === 0) {
+    document.getElementById("donep1").style.display = "block";
+    document.getElementById("donep2").style.display = "block";
+  }
 }
+
+
+
+
 
 function attackingBoats() {
   console.log("aaaaaaaaaaaaaaaaa");

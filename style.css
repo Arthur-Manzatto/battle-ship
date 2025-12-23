@@ -251,6 +251,10 @@ select:focus {
   transition: transform 0.6s ease, opacity 0.4s ease;
 }
 
+.warning{
+  border-left: 6px solid #f44040;
+}
+
 /* Visible state */
 .toast.active {
   transform: translateX(0);
