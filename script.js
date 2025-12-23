@@ -22,7 +22,7 @@ function showPlayerSide(player) { //Function that changes the player sied
 
 const toast = document.querySelector(".toast");
 
-function showToast(message, player) { //Show a toast with game tips, so then players know what to do
+function showToast(player, message) { //Show a toast with game tips, so then players know what to do
   toast.classList.add("active"); //Add the class that pop the toast at the screen
 
   document.getElementById("text1").innerText = "PLAYER " + player;
@@ -34,12 +34,15 @@ function showToast(message, player) { //Show a toast with game tips, so then pla
   }, 10000);
 }
 
-
+function showPlayerInfo(player, message, shipsNumber) {
+  const info = document.getElementById(`p${player}-info`);
+  const ships = document.getElementById(`p${player}-ships`);
+  if (info) info.innerText = message;
+  if (ships) ships.innerText = shipsNumber;
+}
 
 function start() {
   showScreen('gameScreen');
-  showPlayerSide(1);
-  showToast("PLACE YOUR BOATS", 1);
 
   const gridp1 = document.getElementById("grid-p1");
   const gridp2 = document.getElementById("grid-p2");
@@ -63,8 +66,16 @@ function start() {
     gridp1.appendChild(water1); //Here I'm adding the water div to the grid element 
     gridp2.appendChild(water2);
   }
+
+  const ships_number = Math.round(gridTotalSize * 0.2);
+  placingBoats(ships_number);
 }
 
-function placingBoats() {
+function placingBoats(stn) {
+  showPlayerSide(1);
+  showToast(1, "PLACE YOUR BOATS");
+  console.log(stn);
 
+  let shipsTotalNumber = stn;
+  showPlayerInfo(1, "Your remaining ships:", shipsTotalNumber);
 }
