@@ -33,7 +33,7 @@ function showToast(player, message, type) { //Show a toast with game tips, so th
       toast.classList.remove("active");
       toast.classList.remove("warning");
       document.getElementById("warning-icon").style.display = "none"
-    }, 2000);
+    }, 2500);
 
   } else if (type == "tip") {
 
@@ -193,27 +193,34 @@ function clicked_water(element) {
 
   if (isPlacingPhase) {
 
-    if (element_isEmpty === "true" && shipsPlacingNumber != 0) {
+    handlePlacingPhase(element_isEmpty, element_row, element_col, element);
 
-      placeInMatrix(element_row, element_col, 1, shipsPlacingNumber - 1);
-      element.setAttribute("empty", "false");
+  }
 
-      element.innerHTML = "<i class='fa-solid fa-circle-dot fa-lg' style='color: #c41717;'></i>";
 
-    } else if (element_isEmpty === "false") {
+}
 
-      placeInMatrix(element_row, element_col, 0, shipsPlacingNumber + 1);
-      element.setAttribute("empty", "true");
 
-      element.innerHTML = "";
+function handlePlacingPhase(isEmpty, row, col, element) {
+  if (isEmpty === "true" && shipsPlacingNumber != 0) {
 
-      document.getElementById("donep1").style.display = "none";
-      document.getElementById("donep2").style.display = "none";
+    placeInMatrix(row, col, 1, shipsPlacingNumber - 1);
+    element.setAttribute("empty", "false");
 
-    } else {
-      showToast(currentPlayer, "Você não tem mais barcos", "warning")
-    }
+    element.innerHTML = "<i class='fa-solid fa-circle-dot fa-lg' style='color: #c41717;'></i>";
 
+  } else if (isEmpty === "false") {
+
+    placeInMatrix(row, col, 0, shipsPlacingNumber + 1);
+    element.setAttribute("empty", "true");
+
+    element.innerHTML = "";
+
+    document.getElementById("donep1").style.display = "none";
+    document.getElementById("donep2").style.display = "none";
+
+  } else {
+    showToast(currentPlayer, "Você não tem mais barcos", "warning")
   }
 
   if (shipsPlacingNumber === 0) {
@@ -221,9 +228,6 @@ function clicked_water(element) {
     document.getElementById("donep2").style.display = "block";
   }
 }
-
-
-
 
 
 function attackingBoats() {
