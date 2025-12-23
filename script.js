@@ -35,23 +35,12 @@ function showToast(player, message) { //Show a toast with game tips, so then pla
 }
 
 function showPlayerInfo(player, message, shipsNumber) {
+
   const info = document.getElementById(`p${player}-info`);
   const ships = document.getElementById(`p${player}-ships`);
   if (info) info.innerText = message;
   if (ships) ships.innerText = shipsNumber;
-}
 
-function start() {
-  showScreen('gameScreen');
-
-
-  const gridNumber = Number(document.getElementById("gridSize").value);
-  const gridTotalSize = gridNumber * gridNumber;
-
-  createBoard("board-p1", gridNumber);
-
-  const ships_number = Math.round(gridTotalSize * 0.2);
-  placingBoats(ships_number);
 }
 
 function createBoard(boardId, gridNumber) {
@@ -84,17 +73,84 @@ function createBoard(boardId, gridNumber) {
     for (let col = 0; col < gridNumber; col++) {
       const cell = document.createElement("div");
       cell.classList.add("cell", "water");
+      cell.setAttribute("row", row);
+      cell.setAttribute("col", col);
+
+      cell.addEventListener("click", () => {
+        clicked_water(cell);
+      });
+
       board.appendChild(cell);
     }
   }
 }
 
 
-function placingBoats(stn) {
-  showPlayerSide(1);
-  showToast(1, "PLACE YOUR BOATS");
-  console.log(stn);
+function start() {
+  showScreen('gameScreen');
 
-  let shipsTotalNumber = stn;
-  showPlayerInfo(1, "Your remaining ships:", shipsTotalNumber);
+  const gridNumber = Number(document.getElementById("gridSize").value);
+  const gridTotalSize = gridNumber * gridNumber;
+
+  createBoard("board-p1", gridNumber);
+  createBoard("board-p2", gridNumber);
+
+  ships_number = Math.round(gridTotalSize * 0.2);
+  placingBoats(ships_number);
 }
+
+var ships_number;
+var shipsPlacingNumber;
+var isPlacingPhase = true;
+var isAttackingPhase = false;
+
+function clicked_water(element) {
+  console.log("Row: " + element.getAttribute("row") + "Col: " + element.getAttribute("col"));
+
+  if (isPlacingPhase && shipsPlacingNumber != 0) {
+    placingBoats(shipsPlacingNumber - 1);
+  }
+
+  if (shipsPlacingNumber === 0) {
+    document.getElementById("donep1").style.display = "block";
+    document.getElementById("donep2").style.display = "block";
+  } else {
+    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+  }
+}
+
+function donePlacing(btn) {
+
+  if (currentPlayer == 1) {
+    document.getElementById("donep1").style.display = "none";
+    document.getElementById("donep2").style.display = "none";
+
+    showPlayerSide(2);
+    placingBoats(ships_number);
+    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+  } else {
+    attackingBoats();
+  }
+
+}
+
+function placingBoats(stn) {
+
+  if (currentPlayer == 1) {
+    showPlayerSide(1);
+    showToast(currentPlayer, "PLACE YOUR BOATS");
+
+    shipsPlacingNumber = stn;
+    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+  } else {
+    showToast(currentPlayer, "PLACE YOUR BOATS");
+
+    shipsPlacingNumber = stn;
+    showPlayerInfo(currentPlayer, "Your remaining ships:", shipsPlacingNumber);
+  }
+
+}
+
+function attackingBoats() {
+  console.log("aaaaaaaaaaaaaaaaa");
+};

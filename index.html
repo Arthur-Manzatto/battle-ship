@@ -16,7 +16,7 @@
     <div class="bgimage"></div>
     <div class="container">
 
-        <section id="firstmenuScreen" class="screen ">
+        <section id="firstmenuScreen" class="screen active">
             <div class="infos" id="info-container">
 
                 <h1 class="title">⚓ Play BattleShip ⚓</h1>
@@ -26,7 +26,7 @@
             </div>
         </section>
 
-        <section id="gameSettingsScreen" class="screen active">
+        <section id="gameSettingsScreen" class="screen ">
             <div class="infos" id="info-container2">
                 <h1 class="title">⚓ Choose the Game Mode ⚓</h1>
 
@@ -72,10 +72,10 @@
 
                 <div class="board" id="board-p1"></div>
 
-                
-
-                <div class="footer">
+                <div class="footer" id="p1-footer">
                     <span id="p1-info"></span> <span id="p1-ships"></span>
+                    <button class="button primary" id="donep1" onclick="donePlacing(this)" style="display:none">DONE</button>
+
                 </div>
 
             </div>
@@ -89,8 +89,10 @@
 
                 <div class="board" id="board-p2"></div>
 
-                <div class="footer">
+                <div class="footer" id="p2-footer">
                     <span id="p2-info"></span> <span id="p2-ships"></span>
+                    <button class="button primary" id="donep2" onclick="donePlacing(this)" style="display:none">DONE</button>
+
                 </div>
 
             </div>
