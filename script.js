@@ -8,16 +8,21 @@ function showScreen(screenId) { //Function that shows the different game screens
 }
 
 var currentPlayer = 1;
-function showPlayerSide(player) { //Function that changes the player sied
-  if (player == 1) {
-    document.getElementById("p1S").style.display = "flex";
-    document.getElementById("p2S").style.display = "none";
-    currentPlayer = 1;
-  } else {
-    document.getElementById("p1S").style.display = "none";
-    document.getElementById("p2S").style.display = "flex";
-    currentPlayer = 2;
+function showPlayerSide(player) { // Function that changes the player side | The parameter value has to be the one that is playing atm
+
+  let playerToShow = player;
+
+  if (isAttackingPhase) {
+    playerToShow = player === 1 ? 2 : 1;
   }
+
+  document.getElementById("p1S").style.display =
+    playerToShow === 1 ? "flex" : "none";
+
+  document.getElementById("p2S").style.display =
+    playerToShow === 2 ? "flex" : "none";
+
+  currentPlayer = playerToShow;
 }
 
 const toast = document.querySelector(".toast");
@@ -47,8 +52,6 @@ function showToast(player, message, type) { //Show a toast with game tips, so th
   document.getElementById("text1").innerText = "PLAYER " + player;
   document.getElementById("text2").innerText = message;
 
-  // Optional auto-hide after 4s
-
 
 }
 
@@ -61,6 +64,8 @@ function showPlayerInfo(player, message, shipsNumber) {
 
 }
 
+var player1 = 1;
+var player2 = 2;
 function start() {
   showScreen('gameScreen');
 
@@ -70,8 +75,11 @@ function start() {
   createBoard("board-p1", gridNumber);
   createBoard("board-p2", gridNumber);
 
-  shipsTotalNumber = Math.round(gridTotalSize * 0.2);
-  ships_number = shipsTotalNumber;
+  // shipsTotalNumber = Math.round(gridTotalSize * 0.2);
+  // ships_number = shipsTotalNumber;
+
+  shipsTotalNumber = 1
+  ships_number = shipsTotalNumber; //APENAS PARA TESTE!!!!!!!!!!!!!!!!!!!!!!!!!
   placingBoats(ships_number);
 }
 
@@ -108,7 +116,7 @@ function createBoard(boardId, gridNumber) {
 
       cell.setAttribute("row", row);
       cell.setAttribute("col", col);
-      cell.setAttribute("empty", "true"); // setAttribute() always return a boolean (I figured it out the hard way ;-;)
+      cell.setAttribute("empty", "true"); // getAttribute() always return a string (I figured it out the hard way ;-;)
 
       cell.addEventListener("click", () => {
         clicked_water(cell);
@@ -166,6 +174,9 @@ function placeInMatrix(row, col, value, shipsCurrentNumber) {
 }
 
 function donePlacing(btn) {
+  document.querySelectorAll(".water").forEach(w => {
+    w.innerHTML = "";
+  })
 
   if (currentPlayer == 1) {
     showPlayerSide(2);
@@ -175,31 +186,14 @@ function donePlacing(btn) {
     placingBoats(shipsTotalNumber);
     showPlayerInfo(currentPlayer, "Barcos para posicionar:", shipsTotalNumber);
   } else {
+    document.getElementById("donep1").style.display = "none";
+    document.getElementById("donep2").style.display = "none";
+
+    isPlacingPhase = false;
     attackingBoats();
   }
 
 }
-
-var ships_number;
-var shipsPlacingNumber;
-var isAttackingPhase = false;
-
-function clicked_water(element) {
-
-  let element_row = element.getAttribute("row");
-  let element_col = element.getAttribute("col");
-  let element_isEmpty = element.getAttribute("empty");
-
-
-  if (isPlacingPhase) {
-
-    handlePlacingPhase(element_isEmpty, element_row, element_col, element);
-
-  }
-
-
-}
-
 
 function handlePlacingPhase(isEmpty, row, col, element) {
   if (isEmpty === "true" && shipsPlacingNumber != 0) {
@@ -230,6 +224,65 @@ function handlePlacingPhase(isEmpty, row, col, element) {
 }
 
 
+var ships_number;
+var shipsPlacingNumber;
+
+
+function clicked_water(element) {
+
+  let element_row = element.getAttribute("row");
+  let element_col = element.getAttribute("col");
+  let element_isEmpty = element.getAttribute("empty");
+
+
+  if (isPlacingPhase) {
+
+    handlePlacingPhase(element_isEmpty, element_row, element_col, element);
+
+  }
+
+  if (isAttackingPhase){
+    
+    handleAttackingPhase(element_isEmpty, element_row, element_col, element);
+
+  }
+
+}
+
+var isAttackingPhase = false;
+
 function attackingBoats() {
-  console.log("aaaaaaaaaaaaaaaaa");
+  console.log("Attacking Phase: ");
+  console.log(p1_matrix);
+  console.log(p2_matrix);
+
+  isAttackingPhase = true;
+  showPlayerSide(1);
+
+  showToast(player1, "ATAQUE OS BARCOS DO SEU OPONENTE!", "tip");
+  document.getElementById("p1-title").innerText = "P2 - Ataque o PLAYER 1";
+  document.getElementById("p2-title").innerText = "P1 - Ataque o PLAYER 2";
+  
+  showPlayerInfo(currentPlayer, "BARCOS ACHADOS DO P2: ", 0);
+
 };
+//PRÓXIMO PASSO, ANTES DE FAZER A FASE DE ATAQUE É TRANSFORMAR O BARCO EM UM OBJETO, O QUE VAI DEIXAR MAIS FÁCIL NO FUTURO
+function handleAttackingPhase(row, col){
+
+  if(currentPlayer == 1){
+    if(p2_matrix[row][col] === 0){
+    console.log("ERROU");
+    }else{
+      console.log("ACERTOU!!");
+      console.log("Row: ", row, "Col: ", col);
+    }
+  }else{
+    if(p1_matrix[row][col] === 0){
+    console.log("ERROU");
+    }else{
+      console.log("ACERTOU!!");
+      console.log("Row: ", row, "Col: ", col);
+    }
+  }
+  
+}
